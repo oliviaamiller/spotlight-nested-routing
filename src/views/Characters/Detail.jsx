@@ -1,10 +1,23 @@
-import { Link, useParams } from 'react-router-dom'
-export default function CharacterDetail() {
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
+export default function CharacterDetail({ characters = [] }) {
+  const { id } = useParams();
+  const [character, setCharacter] = useState({});
+
+  useEffect(() => {
+    const selectedCharacter = characters.find(
+      (character) => character.id === Number(id)
+    );
+    setCharacter(selectedCharacter);
+  }, [id]);
+
   return (
     <>
-    <h1>Character List</h1>
-    <Link to='/characters'>View Characters</Link>
+      <div>
+        <p>{character.name}</p>
+        <img src={character.image} alt={`Rick and Morty image of character ${character.name}`} />
+      </div>
     </>
-  )
-  )
+  );
 }

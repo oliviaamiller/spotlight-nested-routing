@@ -1,10 +1,19 @@
 import { Route, Switch } from 'react-router-dom';
 import CharacterList from './views/Characters/List';
-import CharacterDetail from './views/Characters/Detail';
 import Home from './views/Home/Home';
 
 export default function App() {
   return (
-    <div>App</div>
-  )
+    <>
+    <h1>Rick and Morty Characters</h1>
+      <Switch>
+        <Route path="/characters/">
+          <CharacterList />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </>
+  );
 }

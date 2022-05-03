@@ -1,12 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, Route, useRouteMatch } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import CharacterDetail from './Detail';
 
 export default function CharacterList() {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { url, path } = useRouteMatch();
 
   useEffect(() => {
-    const getCharacters = async () => {
+    async function getCharacters() {
       const res = await fetch('https://rickandmortyapi.com/api/character');
       const { results } = await res.json();
       setCharacters(results);
@@ -22,13 +24,17 @@ export default function CharacterList() {
         <p>loading characters ...</p>
       ) : (
         <ul>
-          {characters.map((characters) => (
+          {characters.map((character) => (
             <li key={character.id}>
-              <Link to={`/characters/${character.id}`}>{character.name}</Link>
+              <Link to={`${url}/${character.id}`}>{character.name}</Link>
             </li>
           ))}
         </ul>
       )}
+
+      <Route path={`${path}/:id`}>
+          <CharacterDetail characters={characters} />
+      </Route>
     </>
   );
 }
