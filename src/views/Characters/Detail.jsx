@@ -1,7 +1,10 @@
-import React from 'react'
-
+import { Link, useParams } from 'react-router-dom'
 export default function CharacterDetail() {
   return (
-    <div>CharacterDetail</div>
+    <>
+    <h1>Character List</h1>
+    <Link to='/characters'>View Characters</Link>
+    </>
+  )
   )
 }
